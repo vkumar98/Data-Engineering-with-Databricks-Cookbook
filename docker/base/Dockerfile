@@ -25,13 +25,14 @@ RUN mkdir -p ${shared_workspace}/data && \
     rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends build-essential manpages-dev python3-pip python3-dev && \
-    pip3 install  --no-cache-dir --upgrade pip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends build-essential manpages-dev python3-pip python3-dev 
+   # pip3 install  --no-cache-dir --upgrade pip && \
+   # apt-get clean && \
+   # rm -rf /var/lib/apt/lists/*
 
 # We are explicitly pinning the versions of various libraries which this Docker image runs on.
-RUN pip3 install --quiet --no-cache-dir \
+# Added --break-system-packages due to bug
+RUN pip3 install --quiet --break-system-packages --no-cache-dir \
     delta-spark==${delta_spark_version} \
     deltalake==${deltalake_version} \
     pandas==${pandas_version}
